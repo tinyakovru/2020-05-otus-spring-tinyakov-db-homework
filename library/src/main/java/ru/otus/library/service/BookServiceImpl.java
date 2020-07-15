@@ -35,14 +35,13 @@ public class BookServiceImpl implements BookService {
     }
 
     @Override
-    public void createBook(BookDto bookDto) throws Exception {
+    public void createBook(BookDto bookDto) {
         bookDao.createBook(bookDto);
     }
 
     @Override
     public void updateBook(long bookId, String title, Set<Long> authorIds, Set<Long> genreIds) {
-        bookDao.updateBook(new BookDto(bookId,title,authorIds,genreIds));
-
+        bookDao.updateBook(new BookDto(bookId, title, authorIds, genreIds));
     }
 
     @Override

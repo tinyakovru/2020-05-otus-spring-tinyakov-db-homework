@@ -17,7 +17,6 @@ import ru.otus.library.domain.Genre;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.*;
-import java.util.stream.Collectors;
 
 @Repository
 public class BookDaoJdbc implements BookDao {
@@ -111,9 +110,9 @@ public class BookDaoJdbc implements BookDao {
     @Override
     public void updateBook(BookDto bookDto) {
         if (!bookDto.getTitle().equals("_")) {
-            Map<String,Object> bookTitleParam = new HashMap<>(){{
-               put("id",bookDto.getId());
-               put("title",bookDto.getTitle());
+            Map<String, Object> bookTitleParam = new HashMap<>() {{
+                put("id", bookDto.getId());
+                put("title", bookDto.getTitle());
             }};
             jdbc.update("update book set title=:title where id=:id", bookTitleParam);
         }
@@ -123,16 +122,16 @@ public class BookDaoJdbc implements BookDao {
         }
         if (!bookDto.getAuthorsIds().isEmpty()) {
             removeBookRelations(BookRelationType.AUTHOR, bookDto.getId());
-            addBookRelations(BookRelationType.AUTHOR,bookDto.getId(),bookDto.getAuthorsIds());
+            addBookRelations(BookRelationType.AUTHOR, bookDto.getId(), bookDto.getAuthorsIds());
         }
     }
 
     @Override
     public void deleteById(long bookId) {
-        removeBookRelations(BookRelationType.GENRE,bookId);
-        removeBookRelations(BookRelationType.AUTHOR,bookId);
+        removeBookRelations(BookRelationType.GENRE, bookId);
+        removeBookRelations(BookRelationType.AUTHOR, bookId);
         MapSqlParameterSource params = new MapSqlParameterSource();
-        params.addValue("id",bookId);
+        params.addValue("id", bookId);
         jdbc.update("delete from book where id=:id", params);
     }
 

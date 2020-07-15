@@ -75,13 +75,13 @@ class BookDaoJdbcTest {
 
         Set<Genre> genres = book.getGenres();
         assertEquals(2, genres.size());
-//        assertTrue(genres.contains(new Genre(2, "проза")));
-//        assertTrue(genres.contains(new Genre(3, "поэзия")));
+        assertTrue(genres.contains(new Genre(2, "проза")));
+        assertTrue(genres.contains(new Genre(3, "поэзия")));
 
         Set<Author> authors = book.getAuthors();
         assertEquals(2, authors.size());
-//        assertTrue(authors.contains(new Author(3, "Владимир", "Владимирович", "Маяковский")));
-//        assertTrue(authors.contains(new Author(2, "Сергей", "Александрович",  "Есенин")));
+        assertTrue(authors.contains(new Author(3, "Владимир", "Владимирович", "Маяковский")));
+        assertTrue(authors.contains(new Author(2, "Сергей", "Александрович",  "Есенин")));
     }
 
     @DisplayName("должен изменять книгу")

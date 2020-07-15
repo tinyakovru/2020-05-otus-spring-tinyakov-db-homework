@@ -2,8 +2,7 @@ package ru.otus.library.shell;
 
 import lombok.NonNull;
 import lombok.RequiredArgsConstructor;
-import org.h2.tools.Console;
-import org.springframework.beans.factory.annotation.Autowired;
+
 import org.springframework.shell.standard.ShellComponent;
 import org.springframework.shell.standard.ShellMethod;
 import org.springframework.shell.standard.ShellOption;
@@ -12,8 +11,6 @@ import ru.otus.library.service.AuthorService;
 import ru.otus.library.service.BookService;
 import ru.otus.library.service.GenreService;
 
-import java.sql.SQLException;
-import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 import java.util.Set;
@@ -71,17 +68,17 @@ public class ShellCommands {
         }
     }
 
-    @ShellMethod(value = "update_book", key= {"ub"})
+    @ShellMethod(value = "update_book", key = {"ub"})
     public void updateBook(@ShellOption long bookId,
-                            @ShellOption String title,
+                           @ShellOption String title,
                            @ShellOption String authors,
                            @ShellOption String genres) {
         Set<Long> authorIdList = parseIds(authors);
         Set<Long> genresIdList = parseIds(genres);
-        bookService.updateBook(bookId,title,authorIdList,genresIdList);
+        bookService.updateBook(bookId, title, authorIdList, genresIdList);
     }
 
-    @ShellMethod(value = "delete_book", key= {"db"})
+    @ShellMethod(value = "delete_book", key = {"db"})
     public void deleteBook(@ShellOption long bookId) {
         bookService.deleteBookById(bookId);
     }
