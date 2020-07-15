@@ -1,0 +1,8 @@
+spring:
+  datasource:
+    username: dbuser
+    password: 123
+    url: jdbc:h2:mem:librarydb
+    initialization-mode: always
+    schema: schema.sql
+    data: data.sql
