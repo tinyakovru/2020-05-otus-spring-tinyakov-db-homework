@@ -74,37 +74,11 @@ public class BookDaoJdbc implements BookDao {
         if (bookDto.getAuthorsIds().size() > 0) {
             System.out.println(bookDto.getAuthorsIds());
             addBookRelations(BookRelationType.AUTHOR, bookId, bookDto.getAuthorsIds());
-            //            addBookAuthor(bookId, bookDto.getAuthorsIds());
         }
         if (bookDto.getGenresIds().size() > 0) {
             addBookRelations(BookRelationType.GENRE, bookId, bookDto.getGenresIds());
         }
         return bookId;
-    }
-
-    private void removeBookRelations(BookRelationType relationType, long bookId) {
-        MapSqlParameterSource mapSqlParameterSource = new MapSqlParameterSource("book_id", bookId);
-        jdbc.update("delete from " + relationType.getRelationTableName() + " where book_id=:book_id", mapSqlParameterSource);
-    }
-
-    private void addBookRelations(BookRelationType relationType, long bookId, Set<Long> relationIds) {
-        List<SqlParameterSource> batchParams = new ArrayList<SqlParameterSource>();
-        for (long aid : relationIds) {
-            MapSqlParameterSource mapSqlParameterSource = new MapSqlParameterSource("book_id", bookId);
-            mapSqlParameterSource.addValue(relationType.getColumnName(), aid);
-            batchParams.add(mapSqlParameterSource);
-        }
-        jdbc.batchUpdate("insert into " + relationType.getRelationTableName() + " (book_id, " + relationType.getColumnName() + ") values (:book_id, :" + relationType.getColumnName() + ")",
-                batchParams.toArray(new MapSqlParameterSource[relationIds.size()]));
-    }
-
-    private long insertBookTitle(String title) {
-        SqlParameterSource paramsBook = new MapSqlParameterSource("title", title);
-        KeyHolder keyHolder = new GeneratedKeyHolder();
-        jdbc.update("insert into book (title) values (:title)", paramsBook, keyHolder);
-        long id = (long) keyHolder.getKey();
-        System.out.printf("id = %d", id);
-        return id;
     }
 
     @Override
@@ -133,6 +107,31 @@ public class BookDaoJdbc implements BookDao {
         MapSqlParameterSource params = new MapSqlParameterSource();
         params.addValue("id", bookId);
         jdbc.update("delete from book where id=:id", params);
+    }
+
+    private void removeBookRelations(BookRelationType relationType, long bookId) {
+        MapSqlParameterSource mapSqlParameterSource = new MapSqlParameterSource("book_id", bookId);
+        jdbc.update("delete from " + relationType.getRelationTableName() + " where book_id=:book_id", mapSqlParameterSource);
+    }
+
+    private void addBookRelations(BookRelationType relationType, long bookId, Set<Long> relationIds) {
+        List<SqlParameterSource> batchParams = new ArrayList<SqlParameterSource>();
+        for (long aid : relationIds) {
+            MapSqlParameterSource mapSqlParameterSource = new MapSqlParameterSource("book_id", bookId);
+            mapSqlParameterSource.addValue(relationType.getColumnName(), aid);
+            batchParams.add(mapSqlParameterSource);
+        }
+        jdbc.batchUpdate("insert into " + relationType.getRelationTableName() + " (book_id, " + relationType.getColumnName() + ") values (:book_id, :" + relationType.getColumnName() + ")",
+                batchParams.toArray(new MapSqlParameterSource[relationIds.size()]));
+    }
+
+    private long insertBookTitle(String title) {
+        SqlParameterSource paramsBook = new MapSqlParameterSource("title", title);
+        KeyHolder keyHolder = new GeneratedKeyHolder();
+        jdbc.update("insert into book (title) values (:title)", paramsBook, keyHolder);
+        long id = (long) keyHolder.getKey();
+        System.out.printf("id = %d", id);
+        return id;
     }
 
     private String getQuery(String where) {

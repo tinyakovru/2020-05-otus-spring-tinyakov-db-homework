@@ -31,7 +31,7 @@ public class AuthorDaoJdbc implements AuthorDao {
 
     @Override
     public List<Author> getAll() {
-        return jdbc.query("select * from author",
+        return jdbc.query("select a.id, a.first_name, a.middle_name, a.last_name from author as a",
                 (resultSet, i) -> {
                     return new Author(resultSet.getLong("id"),
                             resultSet.getString("first_name"),
