@@ -1,7 +1,6 @@
-package ru.otus.library.domain;
+package ru.otus.library.dto;
 
 import lombok.Data;
-import lombok.NonNull;
 import lombok.RequiredArgsConstructor;
 
 import java.util.Set;

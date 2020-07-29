@@ -1,8 +1,7 @@
-package ru.otus.library.domain;
+package ru.otus.library.models;
 
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
-import org.springframework.boot.test.context.SpringBootTest;
 
 import java.util.HashSet;
 import java.util.Set;
@@ -17,7 +16,7 @@ class BookTest {
     void shouldCorrectCreateBook(){
         Set<Author> ids1 = new HashSet<>();
         Set<Genre> ids2 = new HashSet<>();
-        Book book = new Book(1,ids1,ids2,"titlebook");
+        Book book = new Book(1,ids1,ids2,"titlebook", null);
         assertEquals("titlebook",book.getTitle());
         assertEquals(1,book.getId());
     }

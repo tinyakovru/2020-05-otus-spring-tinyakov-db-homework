@@ -27,14 +27,14 @@ insert into book (`title`) values ('Анна Снегина');
 insert into book (`title`) values ('Что такое хорошо и что такое плохо');
 insert into book (`title`) values ('Облако в штанах');
 
-insert into book (`title`) values ('Десять негритят');
+insert into book (`title`) values ('10 негритят');
 insert into book (`title`) values ('Убийство в восточном экспрессе');
 
 insert into book (`title`) values ('Ловец снов');
 insert into book (`title`) values ('Сияние');
 insert into book (`title`) values ('Оно');
 
-insert into book (`title`) values ('Двенадцать стульев');
+insert into book (`title`) values ('12 стульев');
 insert into book (`title`) values ('Золотой телёнок');
 
 

@@ -1,18 +1,19 @@
 package ru.otus.library.service;
 
-import ru.otus.library.domain.Book;
-import ru.otus.library.domain.BookDto;
+import ru.otus.library.dto.BookWithComments;
+import ru.otus.library.models.Book;
 
 import java.util.List;
-import java.util.Set;
+import java.util.Optional;
 
 public interface BookService {
-    Book getBookById(long id);
+    Optional<Book> getBookById(long id);
     List<Book> getAllBooks();
-    List<Book> getBooksByAuthor(long authorId);
-    List<Book> getBooksByGenre(long genreId);
-    void createBook(BookDto bookDto) throws Exception;
-    void updateBook(long bookId, String title, Set<Long> authorIds, Set<Long> genreIds);
+    List<Book> getBooksByAuthorId(long authorId);
+    List<Book> getBooksByGenreId(long genreId);
+    Optional<Book> getBookWithComments(long bookId);
+    Book createBook(Book book);
+    Book updateBook(Book book);
     void deleteBookById(long id);
 
 }

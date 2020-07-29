@@ -1,4 +1,4 @@
-package ru.otus.library.domain;
+package ru.otus.library.dto;
 
 import lombok.RequiredArgsConstructor;
 
