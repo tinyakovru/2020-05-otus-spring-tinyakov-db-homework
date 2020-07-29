@@ -1,6 +1,5 @@
 package ru.otus.library.shell;
 
-import com.sun.source.tree.OpensTree;
 import lombok.NonNull;
 import lombok.RequiredArgsConstructor;
 
@@ -8,9 +7,6 @@ import org.springframework.shell.standard.ShellComponent;
 import org.springframework.shell.standard.ShellMethod;
 import org.springframework.shell.standard.ShellOption;
 import ru.otus.library.dto.AuthorDto;
-import ru.otus.library.dto.BookDto;
-import ru.otus.library.dto.BookWithComments;
-import ru.otus.library.dto.GenreDto;
 import ru.otus.library.models.*;
 import ru.otus.library.service.AuthorService;
 import ru.otus.library.service.BookService;

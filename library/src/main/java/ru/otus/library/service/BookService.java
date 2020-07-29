@@ -1,6 +1,5 @@
 package ru.otus.library.service;
 
-import ru.otus.library.dto.BookWithComments;
 import ru.otus.library.models.Book;
 
 import java.util.List;

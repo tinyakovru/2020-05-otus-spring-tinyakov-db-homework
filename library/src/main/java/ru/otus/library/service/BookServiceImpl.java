@@ -2,7 +2,6 @@ package ru.otus.library.service;
 
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
-import ru.otus.library.dto.BookWithComments;
 import ru.otus.library.repositories.BookRepository;
 import ru.otus.library.models.Book;
 
