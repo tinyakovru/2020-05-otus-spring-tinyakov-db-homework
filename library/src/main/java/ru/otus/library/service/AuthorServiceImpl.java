@@ -2,6 +2,7 @@ package ru.otus.library.service;
 
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 import ru.otus.library.repositories.AuthorRepository;
 import ru.otus.library.models.Author;
 import ru.otus.library.dto.AuthorDto;
@@ -16,6 +17,7 @@ public class AuthorServiceImpl implements AuthorService {
     private final AuthorRepository authorRepository;
 
     @Override
+    @Transactional
     public void createAuthor(AuthorDto authorDto) {
         authorRepository.save(new Author(0,
                                 authorDto.getFirstName(),
@@ -24,11 +26,13 @@ public class AuthorServiceImpl implements AuthorService {
     }
 
     @Override
+    @Transactional(readOnly = true)
     public List<Author> getAuthors() {
         return authorRepository.findAll();
     }
 
     @Override
+    @Transactional(readOnly = true)
     public Set<Author> findByIds(Set<Long> authorIdList) {
         return authorRepository.findByIds(authorIdList);
     }

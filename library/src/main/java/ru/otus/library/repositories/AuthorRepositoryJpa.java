@@ -20,7 +20,6 @@ public class AuthorRepositoryJpa implements AuthorRepository {
     private EntityManager em;
 
     @Override
-    @Transactional
     public Author save(Author author) {
         if (author.getId() > 0) {
             return em.merge(author);
@@ -31,19 +30,16 @@ public class AuthorRepositoryJpa implements AuthorRepository {
     }
 
     @Override
-    @Transactional(readOnly = true)
     public Optional<Author> findById(long id) {
         return Optional.ofNullable(em.find(Author.class, id));
     }
 
     @Override
-    @Transactional(readOnly = true)
     public List<Author> findAll() {
         return em.createQuery("select a from Author a",Author.class).getResultList();
     }
 
     @Override
-    @Transactional(readOnly = true)
     public Set<Author> findByIds(Set<Long> ids) {
         TypedQuery<Author> query = em.createQuery("select a from Author a where a.id in :ids", Author.class);
         query.setParameter("ids", ids);

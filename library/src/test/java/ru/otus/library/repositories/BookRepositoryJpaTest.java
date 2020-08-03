@@ -76,6 +76,7 @@ class BookRepositoryJpaTest {
         assertThat(book).isNotNull();
 
         repositoryJpa.deleteById(DELETE_BOOK_ID);
+        em.flush();
         em.clear();
 
         Comment comment = em.find(Comment.class, DELETED_BOOK_COMMENT_ID);

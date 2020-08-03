@@ -2,7 +2,6 @@ package ru.otus.library.repositories;
 
 import org.hibernate.jpa.QueryHints;
 import org.springframework.stereotype.Repository;
-import org.springframework.transaction.annotation.Transactional;
 import ru.otus.library.models.Book;
 
 import javax.persistence.*;
@@ -15,7 +14,6 @@ public class BookRepositoryJpa implements BookRepository {
     private EntityManager em;
 
     @Override
-    @Transactional
     public Book save(Book book) {
         if (book.getId() > 0) {
             return em.merge(book);
@@ -26,20 +24,11 @@ public class BookRepositoryJpa implements BookRepository {
     }
 
     @Override
-    @Transactional(readOnly = true)
     public Optional<Book> getById(long id) {
-        TypedQuery<Book> query = em.createQuery(
-                "select b from Book b " +
-                        "join fetch b.authors " +
-                        "join fetch b.genres " +
-                        "where b.id=:id",
-                Book.class);
-        query.setParameter("id", id);
-        return Optional.ofNullable(query.getSingleResult());
+        return Optional.ofNullable(em.find(Book.class,id));
     }
 
     @Override
-    @Transactional(readOnly = true)
     public List<Book> getAllBooks() {
         TypedQuery<Book> query = em.createQuery(
                 "select distinct b " +
@@ -52,7 +41,6 @@ public class BookRepositoryJpa implements BookRepository {
     }
 
     @Override
-    @Transactional(readOnly = true)
     public Optional<Book> getBookByIdWithComments(long id) {
         TypedQuery<Book> query = em.createQuery(
                 "select distinct b " +
@@ -68,7 +56,6 @@ public class BookRepositoryJpa implements BookRepository {
     }
 
     @Override
-    @Transactional(readOnly = true)
     public List<Book> getByAuthorId(long authorId) {
         TypedQuery<Book> query = em.createQuery(
                 "select distinct b " +
@@ -82,26 +69,21 @@ public class BookRepositoryJpa implements BookRepository {
     }
 
     @Override
-    @Transactional(readOnly = true)
     public List<Book> getByGenreId(long genreId) {
         TypedQuery<Book> query = em.createQuery(
                 "select distinct b " +
                         "from Book b " +
                         "join fetch b.authors " +
                         "join fetch b.genres g " +
-                        "where (select g1 from Genre g1 where g1.id=:genreId) member of b.genres",
+                        "where (select g from Genre g where g.id=:genreId) member of b.genres",
                 Book.class);
         query.setParameter("genreId", genreId);
         return query.getResultList();
     }
 
     @Override
-    @Transactional
     public void deleteById(long id) {
-        Query query = em.createQuery("delete from Book b where b.id=:id");
-        query.setParameter("id", id);
-        query.executeUpdate();
+        Book book = em.find(Book.class,id);
+        em.remove(book);
     }
-
-
 }
