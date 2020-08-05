@@ -9,7 +9,5 @@ public interface CommentRepository {
 
     Comment getById(long id);
 
-    List<Comment> getByBookId(long bookId);
-
     void delete(long id);
 }

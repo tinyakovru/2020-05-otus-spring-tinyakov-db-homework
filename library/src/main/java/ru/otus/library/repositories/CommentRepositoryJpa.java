@@ -30,13 +30,6 @@ public class CommentRepositoryJpa implements CommentRepository {
     }
 
     @Override
-    public List<Comment> getByBookId(long bookId) {
-        TypedQuery<Comment> query = em.createQuery("select c from Comment c where c.bookId=:bookId", Comment.class);
-        query.setParameter("bookId", bookId);
-        return query.getResultList();
-    }
-
-    @Override
     public void delete(long id) {
         em.remove(em.find(Comment.class, id));
     }

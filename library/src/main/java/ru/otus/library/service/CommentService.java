@@ -2,12 +2,12 @@ package ru.otus.library.service;
 
 import ru.otus.library.models.Comment;
 
-import java.util.List;
+import java.util.Set;
 
 public interface CommentService {
-    public Comment save(Comment comment);
-    public Comment getById(long id);
-    public List<Comment> getByBookId(long bookId);
-    public Comment update(Comment comment);
-    public void delete(long id);
+    Comment save(Comment comment);
+    Comment getById(long id);
+    Set<Comment> getByBookId(long bookId);
+    Comment update(Comment comment);
+    void delete(long id);
 }
