@@ -163,11 +163,6 @@ public class ShellCommands {
         return commentService.getById(id).toString();
     }
 
-    @ShellMethod(value = "get-comment-for-book", key = {"gcb"})
-    public String getCommentForBook(@ShellOption long bookId) {
-        return commentService.getByBookId(bookId).toString();
-    }
-
     @ShellMethod(value = "delete-comment", key = {"dc"})
     public void deleteComment(@ShellOption long id) {
         commentService.delete(id);

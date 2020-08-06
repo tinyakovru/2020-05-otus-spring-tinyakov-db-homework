@@ -41,21 +41,6 @@ public class BookRepositoryJpa implements BookRepository {
     }
 
     @Override
-    public Optional<Book> getBookByIdWithComments(long id) {
-        TypedQuery<Book> query = em.createQuery(
-                "select distinct b " +
-                        "from Book b " +
-                        "left join fetch b.comments " +
-                        "left join fetch b.authors " +
-                        "left join fetch b.genres " +
-                        "where b.id=:bookId",
-                Book.class);
-        query.setParameter("bookId", id);
-        query.setHint(QueryHints.HINT_PASS_DISTINCT_THROUGH, false);
-        return Optional.ofNullable(query.getSingleResult());
-    }
-
-    @Override
     public List<Book> getByAuthorId(long authorId) {
         TypedQuery<Book> query = em.createQuery(
                 "select distinct b " +

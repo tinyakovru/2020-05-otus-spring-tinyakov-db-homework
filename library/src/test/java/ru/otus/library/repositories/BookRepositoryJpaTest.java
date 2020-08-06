@@ -45,18 +45,6 @@ class BookRepositoryJpaTest {
     }
 
     @Test
-    @DisplayName("должен доставать книгу по id с авторами и жанрами и с комментариями")
-    void shouldGetBookByIdWithComments() {
-        Optional<Book> optionalActualBook = repositoryJpa.getBookByIdWithComments(BOOK_ID_8);
-        Book expectedBook = em.find(Book.class, BOOK_ID_8);
-        assertThat(optionalActualBook).isPresent().get()
-                .isEqualToComparingFieldByField(expectedBook)
-                .hasFieldOrPropertyWithValue("title", TITLE_BOOK_8);
-        Set<Comment> comments = optionalActualBook.get().getComments();
-        assertThat(comments).isNotEmpty().hasSize(3);
-    }
-
-    @Test
     @DisplayName("должен доставать книгу по id автора")
     void shouldGetBookByAuthorId() {
         List<Book> books = repositoryJpa.getByAuthorId(AUTHOR_ID);

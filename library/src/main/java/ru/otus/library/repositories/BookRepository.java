@@ -13,8 +13,6 @@ public interface BookRepository {
 
     List<Book> getAllBooks();
 
-    Optional<Book> getBookByIdWithComments(long id);
-
     List<Book> getByAuthorId(long authorId);
 
     List<Book> getByGenreId(long genreId);

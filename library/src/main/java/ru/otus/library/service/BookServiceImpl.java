@@ -43,7 +43,9 @@ public class BookServiceImpl implements BookService {
     @Override
     @Transactional(readOnly = true)
     public Optional<Book> getBookWithComments(long bookId) {
-        return bookRepository.getBookByIdWithComments(bookId);
+        Optional<Book> optionalBook = bookRepository.getById(bookId);
+        optionalBook.get().getComments().size();
+        return optionalBook;
     }
 
     @Override
