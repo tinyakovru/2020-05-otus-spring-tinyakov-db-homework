@@ -3,6 +3,8 @@ otus spring 2020-05
 
 data base module
 
+переписываем на spring data
+
 #примеры команд
 получить книгу по айдишнику 
 
