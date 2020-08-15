@@ -16,7 +16,6 @@ import static org.assertj.core.api.Assertions.assertThat;
 
 @DataJpaTest
 @DisplayName("тестируем BookRepository")
-//@Import(BookRepository.class)
 class BookRepositoryJpaTest {
 
     private static final String TITLE_BOOK_8 = "10 негритят";

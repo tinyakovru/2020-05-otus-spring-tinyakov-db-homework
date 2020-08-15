@@ -1,18 +1,10 @@
 package ru.otus.library.repositories;
 
 import org.springframework.data.jpa.repository.JpaRepository;
-import org.springframework.data.repository.CrudRepository;
 import ru.otus.library.models.Author;
-import ru.otus.library.dto.AuthorDto;
 
-import java.util.List;
-import java.util.Optional;
 import java.util.Set;
 
-public interface AuthorRepository extends JpaRepository<Author,Long> {
-//    Author save(Author author);
-//    Optional<Author> findById(long id);
-//    List<Author> findAll();
+public interface AuthorRepository extends JpaRepository<Author, Long> {
     Set<Author> findByIdIn(Set<Long> ids);
-//    Set<Author> findByIds(Set<Long> ids);
 }
