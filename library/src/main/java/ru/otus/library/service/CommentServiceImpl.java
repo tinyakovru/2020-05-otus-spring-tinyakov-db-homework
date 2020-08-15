@@ -6,6 +6,8 @@ import org.springframework.transaction.annotation.Transactional;
 import ru.otus.library.models.Comment;
 import ru.otus.library.repositories.CommentRepository;
 
+import java.util.Optional;
+
 @RequiredArgsConstructor
 @Service
 public class CommentServiceImpl implements CommentService {
@@ -19,8 +21,8 @@ public class CommentServiceImpl implements CommentService {
     }
 
     @Override
-    public Comment getById(long id) {
-        return repository.getById(id);
+    public Optional<Comment> getById(long id) {
+        return repository.findById(id);
     }
 
     @Override
@@ -32,6 +34,6 @@ public class CommentServiceImpl implements CommentService {
     @Override
     @Transactional
     public void delete(long id) {
-        repository.delete(id);
+        repository.deleteById(id);
     }
 }

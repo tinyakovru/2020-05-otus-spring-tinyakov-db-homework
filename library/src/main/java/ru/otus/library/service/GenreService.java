@@ -12,5 +12,5 @@ public interface GenreService {
     void create(Genre genre);
     List<Genre> getAllGenres();
     Optional<Genre> findById(long id);
-    Set<Genre> findByIds(Set<Long> genresIdList);
+    Set<Genre> findByIdIn(Set<Long> genresIdList);
 }

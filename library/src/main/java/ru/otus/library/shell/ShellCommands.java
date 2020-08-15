@@ -74,8 +74,8 @@ public class ShellCommands {
         Set<Long> genresIdList = parseIds(genresStr);
 
         try {
-            var authors = authorService.findByIds(authorIdList);
-            var genres = genreService.findByIds(genresIdList);
+            var authors = authorService.findByIdIn(authorIdList);
+            var genres = genreService.findByIdIn(genresIdList);
             Book book = new Book(0, authors, genres, title, null);
             bookService.createBook(book);
         } catch (Exception e) {
@@ -95,8 +95,8 @@ public class ShellCommands {
 
         Set<Long> authorIdList = parseIds(authorsStr);
         Set<Long> genresIdList = parseIds(genresStr);
-        var authors = authorService.findByIds(authorIdList);
-        var genres = genreService.findByIds(genresIdList);
+        var authors = authorService.findByIdIn(authorIdList);
+        var genres = genreService.findByIdIn(genresIdList);
 
         if (!authors.isEmpty())
             book.setAuthors(authors);
@@ -153,7 +153,7 @@ public class ShellCommands {
     @ShellMethod(value = "update-comment", key = {"uc"})
     public String updateComment(@ShellOption long id,
                                 @ShellOption String text) {
-        Comment comment = commentService.getById(id);
+        Comment comment = commentService.getById(id).get();
         comment.setText(text);
         return commentService.save(comment).toString();
     }
