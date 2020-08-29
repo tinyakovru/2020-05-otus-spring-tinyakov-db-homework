@@ -6,6 +6,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.orm.jpa.DataJpaTest;
 import org.springframework.boot.test.autoconfigure.orm.jpa.TestEntityManager;
 import org.springframework.context.annotation.Import;
+import ru.otus.library.models.Author;
 import ru.otus.library.models.Book;
 import ru.otus.library.models.Comment;
 
@@ -14,8 +15,7 @@ import java.util.*;
 import static org.assertj.core.api.Assertions.assertThat;
 
 @DataJpaTest
-@DisplayName("тестируем BookRepositoryJpa")
-@Import(BookRepositoryJpa.class)
+@DisplayName("тестируем BookRepository")
 class BookRepositoryJpaTest {
 
     private static final String TITLE_BOOK_8 = "10 негритят";
@@ -29,7 +29,7 @@ class BookRepositoryJpaTest {
     private static final long DELETED_BOOK_COMMENT_ID = 2;
 
     @Autowired
-    BookRepositoryJpa repositoryJpa;
+    BookRepository repository;
 
     @Autowired
     TestEntityManager em;
@@ -37,7 +37,7 @@ class BookRepositoryJpaTest {
     @Test
     @DisplayName("должен доставать книгу по id с авторами и жанрами, но без комментариев")
     void ShouldGetById() {
-        Optional<Book> optionalActualBook = repositoryJpa.getById(BOOK_ID_13);
+        Optional<Book> optionalActualBook = repository.findById(BOOK_ID_13);
         Book expectedBook = em.find(Book.class, BOOK_ID_13);
         assertThat(optionalActualBook).isPresent().get()
                 .isEqualToComparingFieldByField(expectedBook)
@@ -47,7 +47,7 @@ class BookRepositoryJpaTest {
     @Test
     @DisplayName("должен доставать книгу по id автора")
     void shouldGetBookByAuthorId() {
-        List<Book> books = repositoryJpa.getByAuthorId(AUTHOR_ID);
+        List<Book> books = repository.findByAuthors(new Author(AUTHOR_ID,"","",""));
         Book book1 = em.find(Book.class, BOOKID_BY_AUTHOR_1);
         Book book2 = em.find(Book.class, BOOKID_BY_AUTHOR_2);
         assertThat(books)
@@ -63,7 +63,7 @@ class BookRepositoryJpaTest {
         Book book = em.find(Book.class, DELETE_BOOK_ID);
         assertThat(book).isNotNull();
 
-        repositoryJpa.deleteById(DELETE_BOOK_ID);
+        repository.deleteById(DELETE_BOOK_ID);
         em.flush();
         em.clear();
 

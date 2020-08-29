@@ -7,8 +7,7 @@ import ru.otus.library.repositories.AuthorRepository;
 import ru.otus.library.models.Author;
 import ru.otus.library.dto.AuthorDto;
 
-import java.util.List;
-import java.util.Set;
+import java.util.*;
 
 @RequiredArgsConstructor
 @Service
@@ -33,7 +32,7 @@ public class AuthorServiceImpl implements AuthorService {
 
     @Override
     @Transactional(readOnly = true)
-    public Set<Author> findByIds(Set<Long> authorIdList) {
-        return authorRepository.findByIds(authorIdList);
+    public Set<Author> findByIdIn(Set<Long> authorIdList) {
+        return authorRepository.findByIdIn(authorIdList);
     }
 }

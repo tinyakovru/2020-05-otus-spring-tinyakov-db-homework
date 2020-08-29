@@ -23,20 +23,17 @@ public class GenreServiceImpl implements GenreService {
     }
 
     @Override
-    @Transactional(readOnly = true)
     public List<Genre> getAllGenres() {
         return genreRepository.findAll();
     }
 
     @Override
-    @Transactional(readOnly = true)
     public Optional<Genre> findById(long id) {
         return genreRepository.findById(id);
     }
 
     @Override
-    @Transactional(readOnly = true)
-    public Set<Genre> findByIds(Set<Long> genresIdList) {
-        return genreRepository.findByIds(genresIdList);
+    public Set<Genre> findByIdIn(Set<Long> genresIdList) {
+        return genreRepository.findByIdIn(genresIdList);
     }
 }
