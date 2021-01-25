@@ -18,21 +18,25 @@ public class AuthorServiceImpl implements AuthorService {
     @Override
     @Transactional
     public void createAuthor(AuthorDto authorDto) {
-        authorRepository.save(new Author(0,
-                                authorDto.getFirstName(),
-                                authorDto.getMiddleName(),
-                                authorDto.getLastName()));
+        authorRepository.save(new Author("",
+                authorDto.getFirstName(),
+                authorDto.getMiddleName(),
+                authorDto.getLastName()));
     }
 
     @Override
-    @Transactional(readOnly = true)
     public List<Author> getAuthors() {
         return authorRepository.findAll();
     }
 
     @Override
-    @Transactional(readOnly = true)
-    public Set<Author> findByIdIn(Set<Long> authorIdList) {
-        return authorRepository.findByIdIn(authorIdList);
+    public List<Author> findByIdIn(Set<String> authorIdList) {
+        List<Author> list = new ArrayList<>();
+//        Iterable<Author> iterable = authorRepository.findAllById(authorIdList);
+//        for(Author a : iterable){
+//            set.add(a);
+//        }
+        authorRepository.findAllById(authorIdList).forEach(list::add);
+        return list;
     }
 }

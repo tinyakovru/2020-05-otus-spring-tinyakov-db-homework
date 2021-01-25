@@ -4,20 +4,25 @@ import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 import lombok.RequiredArgsConstructor;
+import org.springframework.data.annotation.Id;
+import org.springframework.data.mongodb.core.mapping.Document;
+import org.springframework.data.mongodb.core.mapping.Field;
 
-import javax.persistence.*;
 
 @Data
-@AllArgsConstructor
 @NoArgsConstructor
-@Entity
+//@RequiredArgsConstructor
+@Document(collection = "genre")
 public class Genre {
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private long id;
+    private String id;
 
-    @Column(name = "title")
+    @Field(name = "title")
     private String title;
+
+    public Genre(String title) {
+        this.title = title;
+    }
 
     @Override
     public String toString() {

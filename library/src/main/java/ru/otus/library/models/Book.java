@@ -3,38 +3,34 @@ package ru.otus.library.models;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+import org.springframework.data.annotation.Id;
+import org.springframework.data.mongodb.core.mapping.Document;
+import org.springframework.data.mongodb.core.mapping.Field;
 
-import javax.persistence.*;
+import java.util.List;
 import java.util.Set;
+
 
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
-@Entity
-@Table(name = "book")
+@Document(collection = "book")
 public class Book {
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private long id;
+//    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private String id;
 
-    @ManyToMany(fetch = FetchType.EAGER)
-    @JoinTable(name = "book_author",
-            joinColumns = @JoinColumn(name = "book_id", referencedColumnName = "id"),
-            inverseJoinColumns = @JoinColumn(name = "author_id", referencedColumnName = "id"))
-    private Set<Author> authors;
+    @Field
+    private List<Author> authors;
 
-    @ManyToMany(fetch = FetchType.EAGER)
-    @JoinTable(name = "book_genre",
-            joinColumns = @JoinColumn(name = "book_id", referencedColumnName = "id"),
-            inverseJoinColumns = @JoinColumn(name = "genre_id", referencedColumnName = "id"))
+    @Field
     private Set<Genre> genres;
 
-    @Column(name = "title")
+    @Field
     private String title;
 
-    @OneToMany(targetEntity = Comment.class, cascade = CascadeType.ALL, fetch = FetchType.LAZY)
-    @JoinColumn(name = "book_id", referencedColumnName = "id")
-    Set<Comment> comments;
+
+    //Set<Comment> comments;
 
     @Override
     public String toString() {
@@ -46,7 +42,7 @@ public class Book {
                 '}' + "\n";
     }
 
-    public String toStringWithComments() {
+    /*public String toStringWithComments() {
         return "Book{" +
                 "id=" + id +
                 ", title='" + title + '\'' +
@@ -54,5 +50,5 @@ public class Book {
                 ", \ngenres=" + genres +
                 ", \ncomments=" + comments +
                 '}' + "\n";
-    }
+    }*/
 }

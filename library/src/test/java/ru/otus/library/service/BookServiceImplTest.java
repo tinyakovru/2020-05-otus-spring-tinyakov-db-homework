@@ -27,23 +27,9 @@ class BookServiceImplTest {
     private BookServiceImpl bookService;
 
     @Test
-    @DisplayName("getBookById должен вызыват ьсоответствующий метод ДАО слоя")
-    void testGetBookById() {
-        bookService.getBookById(3);
-        verify(dao, times(1)).findById(3L);
-    }
-
-    @Test
     @DisplayName("getAllBooks должен вызыват ьсоответствующий метод ДАО слоя")
     void testGetAllBooks() {
         bookService.getAllBooks();
         verify(dao, times(1)).findAll();
-    }
-
-    @Test
-    @DisplayName("должен вызывать соответствующий метод ДАО слоя")
-    void deleteBookById() {
-        bookService.deleteBookById(50);
-        verify(dao, times(1)).deleteById(50L);
     }
 }
