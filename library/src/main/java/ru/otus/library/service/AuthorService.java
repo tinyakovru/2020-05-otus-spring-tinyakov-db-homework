@@ -11,5 +11,5 @@ public interface AuthorService {
 
     List<Author> getAuthors();
 
-    Set<Author> findByIdIn(Set<Long> authorIdList);
+    List<Author> findByIdIn(Set<String> authorIdList);
 }

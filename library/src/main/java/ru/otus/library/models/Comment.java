@@ -3,24 +3,31 @@ package ru.otus.library.models;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+import lombok.RequiredArgsConstructor;
+import org.springframework.data.annotation.Id;
+import org.springframework.data.mongodb.core.mapping.DBRef;
+import org.springframework.data.mongodb.core.mapping.Document;
+import org.springframework.data.mongodb.core.mapping.Field;
 
-import javax.persistence.*;
 
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
-@Entity
-@Table(name = "comment")
+@Document(collection = "comment")
 public class Comment {
 
+    public Comment(String bookId, String text) {
+        this.bookId = bookId;
+        this.text = text;
+    }
+
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private long id;
+    private String id;
 
-    @Column(name = "book_id")
-    private long bookId;
+    @Field(name = "book_id")
+    private String bookId;
 
-    @Column(name = "text")
+    @Field(name = "text")
     private String text;
 
 }

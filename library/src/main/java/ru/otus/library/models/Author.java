@@ -1,26 +1,26 @@
 package ru.otus.library.models;
 
 import lombok.*;
+import org.springframework.data.annotation.Id;
+import org.springframework.data.mongodb.core.mapping.Document;
+import org.springframework.data.mongodb.core.mapping.Field;
 
-import javax.persistence.*;
 
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
-@Entity
-@Table(name = "author")
+@Document(collection = "author")
 public class Author {
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private long id;
+    private String id;
 
-    @Column(name = "first_name")
+    @Field(name = "first_name")
     private String firstName;
 
-    @Column(name = "middle_name")
+    @Field(name = "middle_name")
     private String middleName;
 
-    @Column(name = "last_name")
+    @Field(name = "last_name")
     private String lastName;
 
     @Override

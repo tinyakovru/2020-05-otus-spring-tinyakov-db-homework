@@ -3,7 +3,9 @@ package ru.otus.library.service;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+import ru.otus.library.models.Book;
 import ru.otus.library.models.Comment;
+import ru.otus.library.repositories.BookRepository;
 import ru.otus.library.repositories.CommentRepository;
 
 import java.util.Optional;
@@ -12,28 +14,36 @@ import java.util.Optional;
 @Service
 public class CommentServiceImpl implements CommentService {
 
-    private final CommentRepository repository;
+    private final CommentRepository commentRepository;
+//    private final BookRepository bookRepository;
+
 
     @Override
     @Transactional
     public Comment save(Comment comment) {
-        return repository.save(comment);
+        return commentRepository.save(comment);
     }
 
     @Override
-    public Optional<Comment> getById(long id) {
-        return repository.findById(id);
+    public Comment create(String bookId, String text) {
+//        Book book = bookRepository.findById(bookId).orElseThrow();
+        return commentRepository.save(new Comment(bookId,text));
+    }
+
+    @Override
+    public Optional<Comment> getById(String id) {
+        return commentRepository.findById(id);
     }
 
     @Override
     @Transactional
     public Comment update(Comment comment) {
-        return repository.save(comment);
+        return commentRepository.save(comment);
     }
 
     @Override
     @Transactional
-    public void delete(long id) {
-        repository.deleteById(id);
+    public void delete(String id) {
+        commentRepository.deleteById(id);
     }
 }
